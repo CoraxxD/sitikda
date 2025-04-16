@@ -1,0 +1,18 @@
+{
+  "narzki": [
+    { "name": "Котейка", "status": "в работе" }
+  ],
+  "emotes": [
+    { "name": "Фокс", "status": "готово" }
+  ],
+  "startscreen": [
+    { "name": "Мыш", "status": "ожидает" }
+  ],
+  "history": [
+    {
+      "name": "Рыбка",
+      "status": "готово",
+      "type": "эмоуты"
+    }
+  ]
+}

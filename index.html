@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Заказы</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="tabs">
+    <button data-tab="narzki">Нарезки</button>
+    <button data-tab="emotes">Эмоуты</button>
+    <button data-tab="startscreen">Стартовый экран</button>
+    <button data-tab="history">История</button>
+  </div>
+
+  <div class="container">
+    <div id="narzki" class="tab-content"></div>
+    <div id="emotes" class="tab-content" style="display: none;"></div>
+    <div id="startscreen" class="tab-content" style="display: none;"></div>
+    <div id="history" class="tab-content" style="display: none;"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
