@@ -1,11 +1,16 @@
-async function loadOrders() {
-  const res = await fetch('orders.json');
-  const data = await res.json();
 
-  renderTable('narzki', data.narzki);
-  renderTable('emotes', data.emotes);
-  renderTable('startscreen', data.startscreen);
-  renderTable('history', data.history, true);
+let orders = JSON.parse(localStorage.getItem('orders')) || {
+  narzki: [],
+  emotes: [],
+  startscreen: [],
+  history: []
+};
+
+async function loadOrders() {
+  renderTable('narzki', orders.narzki);
+  renderTable('emotes', orders.emotes);
+  renderTable('startscreen', orders.startscreen);
+  renderTable('history', orders.history, true);
 }
 
 function renderTable(id, list, showType = false) {
@@ -44,5 +49,45 @@ document.querySelectorAll('.tabs button').forEach(btn => {
     btn.classList.add('active');
   });
 });
+
+document.getElementById('type').addEventListener('change', (e) => {
+  document.getElementById('typeField').style.display = e.target.value === 'history' ? 'block' : 'none';
+});
+
+document.getElementById('adminForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const status = document.getElementById('status').value.trim();
+  const type = document.getElementById('type').value;
+  const historyType = document.getElementById('historyType').value.trim();
+
+  if (!name || !status || (type === 'history' && !historyType)) {
+    alert('Пожалуйста, заполните все поля.');
+    return;
+  }
+
+  const newOrder = { name, status };
+  if (type === 'history') newOrder.type = historyType;
+
+  orders[type].push(newOrder);
+  localStorage.setItem('orders', JSON.stringify(orders));
+  loadOrders();
+  this.reset();
+  document.getElementById('typeField').style.display = 'none';
+});
+
+function checkPassword() {
+  const password = document.getElementById('adminPassword').value;
+  if (password === 'admin123') {
+    document.getElementById('passwordModal').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+  } else {
+    document.getElementById('wrongPass').style.display = 'block';
+  }
+}
+
+if (window.location.search.includes('admin=1')) {
+  document.getElementById('passwordModal').style.display = 'flex';
+}
 
 loadOrders();
